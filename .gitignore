@@ -1,0 +1,25 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+Back-HR/.vs
+*.user
+*.suo
+
+# Compiled files
+*.dll
+*.exe
+*.pdb
+
+# NuGet packages
+project.assets.json
+*.nuget.*
+
+# Runtime generated files
+*.cache
+
+wwwroot/uploads/
+node_modules/
+
