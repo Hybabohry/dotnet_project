@@ -1,0 +1,194 @@
+<div class="candidates-page">
+  <!-- Header -->
+  <div class="candidates-header">
+    <h2 *ngIf="job">Candidates for {{ job.title }}</h2>
+    <button class="back-btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i> Back to Job Offers
+    </button>
+  </div>
+
+  <!-- Error Messages -->
+  <div class="errors" *ngIf="formErrors.length > 0">
+    <ul>
+      <li *ngFor="let error of formErrors">{{ error }}</li>
+    </ul>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-spinner">
+    <i class="fas fa-spinner fa-spin"></i> Loading candidates...
+  </div>
+
+  <!-- No Applications -->
+  <div *ngIf="!loading && applications.length === 0" class="no-candidates">
+    <i class="fas fa-exclamation-circle"></i> No candidates found for this job.
+  </div>
+
+  <!-- Applications Content -->
+  <div *ngIf="!loading && applications.length > 0" class="candidates-content">
+    <!-- Percentage Qualified and Most Qualified Candidate -->
+    <div class="candidates-stats">
+      <h3>Percentage Qualified: {{ percentageQualified | number:'1.2-2' }}%</h3>
+      <div *ngIf="mostQualifiedCandidate; else noQualifiedCandidate">
+        <h4>Most Qualified Candidate:</h4>
+        <p>Name: {{ mostQualifiedCandidate.Name }}</p>
+        <p>Email: {{ mostQualifiedCandidate.Email }}</p>
+        <p>Adequacy Score: {{ mostQualifiedCandidate.AdequacyScore | number:'1.2-2' }}%</p>
+      </div>
+      <ng-template #noQualifiedCandidate>
+        <p>No qualified candidate found.</p>
+      </ng-template>
+    </div>
+
+    <!-- Filter and Sort Controls -->
+    <div class="candidates-controls">
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search candidates by name or email..." (input)="filterCandidates($event)">
+      </div>
+      <div class="sort-buttons">
+        <button [ngClass]="{'active': currentSort === 'nameAsc'}" (click)="sortCandidatesBy('nameAsc')">
+          <i class="fas fa-sort-alpha-down"></i> Name (A-Z)
+        </button>
+        <button [ngClass]="{'active': currentSort === 'nameDesc'}" (click)="sortCandidatesBy('nameDesc')">
+          <i class="fas fa-sort-alpha-up"></i> Name (Z-A)
+        </button>
+        <button [ngClass]="{'active': currentSort === 'dateAsc'}" (click)="sortCandidatesBy('dateAsc')">
+          <i class="fas fa-sort-numeric-down"></i> Date (Oldest)
+        </button>
+        <button [ngClass]="{'active': currentSort === 'dateDesc'}" (click)="sortCandidatesBy('dateDesc')">
+          <i class="fas fa-sort-numeric-up"></i> Date (Newest)
+        </button>
+      </div>
+    </div>
+
+    <!-- Applications Table -->
+    <div class="candidates-table-container">
+      <table class="candidates-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>Applied Date</th>
+            <th>Competences</th>
+            <th>Adequacy Score</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of paginatedApplications()" [ngClass]="getStatusClass(app)">
+            <td>{{ app.Candidate.Email || 'N/A' }}</td>
+            <td>{{ app.Candidate.Telephone || 'N/A' }}</td>
+            <td>{{ app.ApplicationDate | date:'mediumDate' }}</td>
+            <td>{{ formatCompetences(app.Candidate.Competences) }}</td>
+            <td>{{ app.AdequacyScore | number:'1.2-2' }}%</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(app)">
+                {{ app.Status || 'Pending' }}
+              </span>
+            </td>
+            <td class="actions">
+              <button *ngIf="app.CvFile" (click)="viewCv(app.CvFile)" title="View CV">
+                <i class="fas fa-file-pdf"></i>
+              </button>
+              <button (click)="shortlistCandidate(app)" title="Shortlist">
+                <i class="fas fa-check-circle"></i>
+              </button>
+              <button (click)="rejectCandidate(app)" title="Reject">
+                <i class="fas fa-times-circle"></i>
+              </button>
+              <button (click)="openScheduleInterviewModal(app)" title="Schedule Interview">
+                <i class="fas fa-calendar-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-controls" *ngIf="applications.length > candidatePageSize">
+      <button (click)="goToCandidatePage(candidateCurrentPage - 1)" [disabled]="candidateCurrentPage === 1">
+        <i class="fas fa-chevron-left"></i> Previous
+      </button>
+      <div class="page-numbers">
+        <span *ngFor="let page of getPageNumbers()" [ngClass]="{'active': page === candidateCurrentPage}" (click)="goToCandidatePage(page)">
+          {{ page }}
+        </span>
+      </div>
+      <button (click)="goToCandidatePage(candidateCurrentPage + 1)" [disabled]="candidateCurrentPage === candidateTotalPages()">
+        Next <i class="fas fa-chevron-right"></i>
+      </button>
+      <select (change)="changeCandidatePageSize($event)">
+        <option *ngFor="let size of candidatePageSizeOptions" [value]="size" [selected]="size === candidatePageSize">
+          {{ size }} per page
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="errors" *ngIf="formErrors.length > 0">
+    <ul>
+      <li *ngFor="let error of formErrors">
+        <!-- Make Google Meet link clickable if present -->
+        <ng-container *ngIf="error.includes('Google Meet Link:'); else plainError">
+          {{ error.split('Google Meet Link:')[0] }}
+          <a [href]="error.split('Google Meet Link:')[1].trim()" target="_blank" class="meet-link">
+            {{ error.split('Google Meet Link:')[1].trim() }}
+          </a>
+        </ng-container>
+        <ng-template #plainError>{{ error }}</ng-template>
+      </li>
+    </ul>
+  </div>
+  <div class="modal" *ngIf="selectedApplication">
+    <div class="modal-content">
+      <h3>Schedule Interview for {{ selectedApplication.Candidate.Firstname }} {{ selectedApplication.Candidate.Lastname }}</h3>
+      <form #interviewForm="ngForm" (ngSubmit)="scheduleInterview(interviewForm.value)">
+        <div class="form-group">
+          <label for="date">Date and Time:</label>
+          <input type="datetime-local" id="date" name="date" ngModel required [min]="today" />
+        </div>
+        <div class="form-group">
+          <label for="location">Location:</label>
+          <input type="text" id="location" name="location" ngModel placeholder="Leave blank to use Google Meet" />
+          <small>
+            If left blank, a Google Meet link will be generated automatically.
+          </small>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" [disabled]="!interviewForm.valid || isLoadingInterviews">
+            {{ isLoadingInterviews ? 'Scheduling...' : 'Schedule' }}
+          </button>
+          <button type="button" (click)="closeModal()" [disabled]="isLoadingInterviews">Cancel</button>
+        </div>
+      </form>
+
+      <!-- Display Scheduled Interviews -->
+      <div class="interviews-list">
+        <h4>Scheduled Interviews</h4>
+        <div *ngIf="isLoadingInterviews" class="loading-spinner">
+          <i class="fas fa-spinner fa-spin"></i> Loading interviews...
+        </div>
+        <div *ngIf="!isLoadingInterviews">
+          <div *ngIf="interviews.length > 0; else noInterviews">
+            <div *ngFor="let interview of interviews" class="interview-item">
+              <p><strong>Date:</strong> {{ interview.ScheduledDate | date:'medium' }}</p>
+              <p><strong>Location:</strong>
+                <a [href]="interview.Location" target="_blank" *ngIf="interview.Location.includes('meet.google.com')">
+                  {{ interview.Location }}
+                </a>
+                <span *ngIf="!interview.Location.includes('meet.google.com')">
+                  {{ interview.Location }}
+                </span>
+              </p>
+            </div>
+          </div>
+          <ng-template #noInterviews>
+            <p>No interviews scheduled yet.</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

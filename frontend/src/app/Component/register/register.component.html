@@ -1,0 +1,143 @@
+<body>
+  <div class="auth-wrapper d-flex align-center justify-center pa-4">
+    <div class="auth-card pa-4 pt-7" style="max-width: 1000px; max-height: max-content;">
+      <div class="justify-center">
+        <h4>Create Your Account 🚀</h4>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <!-- Firstname and Lastname in one row -->
+          <div class="col-6">
+            <input
+              type="text"
+              id="firstname"
+              formControlName="firstname"
+              placeholder="Firstname"
+              class="text-field"
+              required
+            />
+            <div *ngIf="registerForm.get('firstname')?.invalid && registerForm.get('firstname')?.touched" class="error-message">
+              Firstname is required.
+            </div>
+          </div>
+          <div class="col-6">
+            <input
+              type="text"
+              id="lastname"
+              formControlName="lastname"
+              placeholder="Lastname"
+              class="text-field"
+              required
+            />
+            <div *ngIf="registerForm.get('lastname')?.invalid && registerForm.get('lastname')?.touched" class="error-message">
+              Lastname is required.
+            </div>
+          </div>
+
+          <!-- Email in one row -->
+          <div class="col-12">
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="Email Address"
+              class="text-field"
+              required
+            />
+            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
+              Please enter a valid email address.
+            </div>
+          </div>
+
+          <!-- Password and Confirm Password in one row -->
+          <div class="col-6">
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              placeholder="Password"
+              class="text-field"
+              required
+            />
+            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
+              Password is required (at least 6 characters).
+            </div>
+          </div>
+          <div class="col-6">
+            <input
+              type="password"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              placeholder="Confirm Password"
+              class="text-field"
+              required
+            />
+            <div *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched" class="error-message">
+              Passwords do not match.
+            </div>
+          </div>
+
+          <!-- Telephone in one row -->
+          <div class="col-12">
+            <input
+              type="text"
+              id="telephone"
+              formControlName="telephone"
+              placeholder="Telephone"
+              class="text-field"
+              required
+            />
+            <div *ngIf="registerForm.get('telephone')?.invalid && registerForm.get('telephone')?.touched" class="error-message">
+              Telephone is required.
+            </div>
+          </div>
+
+          <!-- Competences in one row -->
+          <div class="col-12">
+            <label for="competences">Competences</label>
+            <select
+              multiple
+              id="competences"
+              formControlName="competences"
+              class="text-field"
+            >
+              <option *ngFor="let competence of competences" [ngValue]="competence">
+                {{ competence.Titre }}
+              </option>
+            </select>
+          </div>
+
+          <!-- CV File in one row -->
+          <div class="col-12">
+            <input
+              type="file"
+              id="cvFile"
+              (change)="onFileChange($event)"
+              accept=".pdf"
+              class="text-field"
+            />
+            <div *ngIf="registerForm.get('cvFile')?.value && registerForm.get('cvFile')?.value.type !== 'application/pdf'" class="error-message">
+              Please upload a PDF file.
+            </div>
+          </div>
+
+          <!-- Submit button in one row -->
+          <div class="col-12">
+            <button type="submit" class="btn block" [disabled]="registerForm.invalid">
+              Register Account
+            </button>
+          </div>
+
+          <!-- Login Link -->
+          <div class="col-12 text-center mt-1">
+            <p class="login-link-text">
+              Already have an account? 
+              <a [routerLink]="['/login']" class="login-link">Login</a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,69 @@
+<body>
+  <div class="auth-wrapper d-flex align-center justify-center pa-4">
+    <div class="auth-card pa-4 pt-7" style="max-width: 448px;">
+      <div class="justify-center">
+        <div class="d-flex">
+          <div class="d-flex text-primary">
+            <img src="/logo_hr.png" alt="HR Tracking Logo"  class="small-logo"/>
+            
+          </div>
+          
+        </div>
+      
+      </div>
+
+      <div class="pt-2">
+        <h5 class="text-h5">
+          Welcome, Back! 👋🏻
+        </h5>
+        
+      </div>
+
+      <div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-12">
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                placeholder="Your email"
+                class="text-field"
+                required
+              />
+            </div>
+
+            <div class="col-12">
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                placeholder="Your password"
+                class="text-field"
+                required
+              />
+              <div class="d-flex flex-wrap mt-1 mb-4">
+             
+
+                <a href="javascript:void(0)" class="text-primary ms-2 mb-1">
+                  Forgot Password?
+                </a>
+              </div>
+
+              <!-- login button -->
+              <button type="submit" class="btn block" [disabled]="loginForm.invalid">
+                Sign In 
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+      <div class="text-center mt-3">
+        <p>Or <a href="/register" class="text-primary">Create your account</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+

@@ -1,0 +1,291 @@
+* Conteneur principal */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #f9fafc;
+  min-height: 100vh;
+  font-family: 'Roboto', 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  position: relative;
+  left: 120px;
+}
+
+/* Header avec titre et bouton */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* Titre principal */
+h2 {
+  font-size: 28px;
+  color: #1a1a1a;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* Bouton pour ajouter un nouveau sondage */
+.add-survey {
+  background-color: #6f42c1;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-survey:hover {
+  background-color: #5a32a3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3);
+}
+
+.add-survey:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(111, 66, 193, 0.3);
+}
+
+/* Liste des sondages (verticale) */
+.survey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Carte de sondage */
+.survey-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border-left: 4px solid #6f42c1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet de survol sur la carte */
+.survey-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenu de la carte (icône + infos) */
+.survey-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+/* Icône du sondage */
+.survey-icon {
+  font-size: 24px;
+  color: #6f42c1;
+}
+
+/* Informations du sondage */
+.survey-info {
+  flex: 1;
+}
+
+.survey-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+/* Détails du sondage */
+.survey-details {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.survey-details span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.survey-details span strong {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Conteneur des boutons d'action */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Boutons d'action (icônes) */
+.action-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+/* Bouton pour consulter le sondage */
+.view-btn {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.view-btn:hover {
+  background-color: #5a32a3;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3);
+}
+
+/* Bouton pour modifier le sondage */
+.edit-btn {
+  background-color: #f472b6;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #f472b6;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(240, 173, 78, 0.3);
+}
+
+/* Bouton pour supprimer le sondage */
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* Bouton pour voir les réponses */
+.responses-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.responses-btn:hover {
+  background-color: #218838;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Messages d'alerte */
+.alert {
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.alert-info {
+  background-color: #e1f0fa;
+  color: #2b6cb0;
+}
+
+.alert-danger {
+  background-color: #fceaea;
+  color: #c0392b;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 20px;
+    left: 0;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .add-survey {
+    width: 100%;
+  }
+
+  .survey-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .survey-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .survey-details {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .action-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .action-btn {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .survey-info h3 {
+    font-size: 16px;
+  }
+
+  .survey-details {
+    font-size: 13px;
+  }
+
+  .action-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+/* Router Outlet */
+router-outlet {
+  display: block;
+  min-height: 200px;
+}

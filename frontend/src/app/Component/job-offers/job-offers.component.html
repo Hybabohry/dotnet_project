@@ -1,0 +1,134 @@
+<body>
+  <main class="main-content">
+    <!-- Main Content -->
+    <div class="container">
+      <div class="header">
+        <h2>Job Offers Management</h2>
+        <button class="add-user" (click)="showJobForm = !showJobForm">
+          <i class="fas fa-plus"></i> {{ isEditing ? 'Edit Job Offer' : 'Add Job Offer' }}
+        </button>
+      </div>
+
+      <!-- Error Messages -->
+      <div *ngIf="formErrors.length > 0" class="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        <ul>
+          <li *ngFor="let error of formErrors">{{ error }}</li>
+        </ul>
+      </div>
+
+      <!-- Add/Edit Job Form Modal -->
+      <div *ngIf="showJobForm" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>{{ isEditing ? 'Edit Job Offer' : 'Add New Job Offer' }}</h3>
+            <button class="close-button" (click)="resetForm()">×</button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="newJobForm" (ngSubmit)="addJobOffer()">
+              <div class="form-group">
+                <label for="title">Job Title</label>
+                <input type="text" id="title" formControlName="title" required>
+              </div>
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" formControlName="location" required>
+              </div>
+              <div class="form-group">
+                <label for="description">Job Description</label>
+                <textarea id="description" formControlName="description" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="experience">Experience (years)</label>
+                <input type="number" id="experience" formControlName="experience" required>
+              </div>
+              <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="number" id="salary" formControlName="salary" required>
+              </div>
+              <div class="form-group">
+                <label for="competences">Required Skills</label>
+                <select multiple id="competences" formControlName="competences">
+                  <option *ngFor="let competence of competences" [value]="competence.Id">
+                    {{ competence.Titre }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-actions">
+                <button type="submit" [disabled]="newJobForm.invalid || loading" class="submit-btn">
+                  {{ isEditing ? 'Update' : 'Add' }} Job Offer
+                </button>
+                <button type="button" class="cancel-btn" (click)="resetForm()">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading job offers...</p>
+      </div>
+
+      <!-- Filter Section -->
+      <div *ngIf="!loading" class="filter-section">
+        <input 
+          type="text" 
+          placeholder="Search by job title, location, or description..."
+          (input)="filterJobs($event)"
+          class="search-input"
+        >
+        <select (change)="sortJobs($event)" class="sort-select">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+      </div>
+
+      <!-- Job Offers List -->
+      <div *ngIf="!loading" class="users-list">
+        <div *ngIf="filteredJobs.length === 0" class="empty-state">
+          <i class="fas fa-briefcase"></i>
+          <p>No job offers available. Add a new job offer to get started!</p>
+        </div>
+
+        <div *ngFor="let job of filteredJobs" class="user-card">
+          <div class="user-content">
+            <div class="user-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="user-info">
+              <h3>{{ job.title | titlecase }}</h3>
+              <div class="user-details">
+                <span><i class="fas fa-map-marker-alt"></i> {{ job.location | titlecase }}</span>
+                <span><i class="fas fa-calendar"></i> {{ job.posted | date:'mediumDate' }}</span>
+                <span><i class="fas fa-money-bill-wave"></i> {{ job.salary | currency }}</span>
+              </div>
+              <div class="job-description">
+                <p>{{ job.description || 'No description available' }}</p>
+              </div>
+              <div class="competences-list" *ngIf="job.competences && job.competences.length > 0">
+                <span class="competence-tag" *ngFor="let competence of job.competences">
+                  {{ competence.Titre }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button class="action-btn edit-btn" (click)="viewCandidates(job)" title="View Candidates">
+              <i class="fas fa-users"></i>
+              <span class="candidate-count" *ngIf="job.candidates.length > 0">({{ job.candidates.length }})</span>
+            </button>
+            <button class="action-btn delete-btn" (click)="deleteJob(job)" title="Delete Job">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
+</body>

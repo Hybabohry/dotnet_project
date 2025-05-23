@@ -1,0 +1,41 @@
+<div class="chatbot-container" *ngIf="isOpen">
+  <div class="chatbot-header">
+    <h3>Chatbot Assistant</h3>
+    <button class="close-button" (click)="closeChat()">×</button>
+  </div>
+  <div class="chatbot-body">
+    <div class="chat-messages">
+      <div *ngFor="let message of chatHistory" class="message" [class.user]="message.sender === 'You'">
+        <div class="message-content">
+          <strong>{{message.sender}}:</strong> {{message.message}}
+        </div>
+      </div>
+      <div *ngIf="isWaitingForResponse" class="message bot">
+        <div class="message-content">
+          <strong>Bot:</strong> Thinking...
+        </div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input 
+        type="text" 
+        [(ngModel)]="userMessage" 
+        placeholder="Type your message..." 
+        (keyup.enter)="sendMessage()"
+        [disabled]="isWaitingForResponse"
+      />
+      <button 
+        (click)="sendMessage()" 
+        [disabled]="isWaitingForResponse || !userMessage.trim()"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+</div>
+
+<button class="chatbot-button" (click)="toggleChat()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+  </svg>
+</button>

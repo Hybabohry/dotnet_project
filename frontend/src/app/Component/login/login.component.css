@@ -1,0 +1,263 @@
+/* Reset and Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Auth Wrapper */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  width: 100%;
+}
+
+/* Auth Card */
+.auth-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.15);
+  padding: 40px;
+  width: 100%;
+  max-width: 448px;
+  margin: 0 auto;
+  border: 1px solid rgba(245, 158, 11, 0.1);
+}
+
+.auth-card .justify-center {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Logo */
+.small-logo {
+  width: 80px;
+  transition: transform 0.3s ease;
+  margin-bottom: 16px;
+}
+
+.small-logo:hover {
+  transform: scale(1.1);
+}
+
+/* Header */
+.auth-card h5 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-card p {
+  font-size: 14px;
+  color: #4b5563;
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+/* Form */
+form {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -12px;
+}
+
+.col-12 {
+  padding: 0 12px;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+/* Text Fields */
+.text-field {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 8px 0;
+  border: 2px solid #f3f4f6;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  background-color: #f9fafb;
+  color: #1f2937;
+}
+
+.text-field:focus {
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
+  outline: none;
+  background-color: #ffffff;
+}
+
+/* Checkbox and Forgot Password */
+.d-flex.flex-wrap.mt-1.mb-4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #F59E0B;
+  width: 16px;
+  height: 16px;
+}
+
+label[for="remember"] {
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+a.text-primary {
+  color: #F59E0B;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a.text-primary:hover {
+  color: #D97706;
+  text-decoration: underline;
+}
+
+/* Submit Button */
+.btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+}
+
+.btn:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Create Account Link */
+.text-center.mt-3 {
+  margin-top: 24px;
+}
+
+.text-center p {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0;
+}
+
+.text-center a {
+  color: #F59E0B;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.text-center a:hover {
+  color: #D97706;
+  text-decoration: underline;
+}
+
+/* Utility Classes */
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.mt-1 {
+  margin-top: 8px;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.ms-2 {
+  margin-left: 8px;
+}
+
+.mx-4 {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 480px) {
+  .auth-card {
+    padding: 24px;
+  }
+
+  .auth-card h5 {
+    font-size: 24px;
+  }
+
+  .text-field,
+  .btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .small-logo {
+    width: 60px;
+  }
+}

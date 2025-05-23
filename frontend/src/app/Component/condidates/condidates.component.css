@@ -1,0 +1,116 @@
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    align-content: center;
+    background-color: #f3f4f8;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    font-size: 2.2rem;
+    font-weight: 600;
+  }
+  
+  .filter-form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .filter-form input {
+    padding: 12px;
+    font-size: 16px;
+    width: 250px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+  }
+  
+  .filter-form input:focus {
+    border-color: #6f42c1;
+    outline: none;
+  }
+  
+  .filter-form button {
+    padding: 12px 25px;
+    font-size: 16px;
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filter-form button:hover {
+    background-color: #5b2d91;
+  }
+  
+  /* Candidate list display */
+  .candidate-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .candidate-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .candidate-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .card-header h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .card-header .score {
+    font-weight: bold;
+    color: #6f42c1;
+    font-size: 1.1rem;
+  }
+  
+  .candidate-card p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  button.view-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button.view-button:hover {
+    background-color: #6f42c1;
+  }
+  

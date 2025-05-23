@@ -1,0 +1,30 @@
+<div class="container">
+    <h1>Liste des Candidats Qualifiés</h1>
+  
+    <!-- Filtre pour le score de pertinence -->
+    <div class="filter-form">
+      <input
+        type="number"
+        [(ngModel)]="relevanceScore"
+        placeholder="Score de pertinence (0-100)"
+        min="0"
+        max="100"
+      />
+      <button (click)="filterCandidates()">Filtrer</button>
+    </div>
+  
+   
+    <div class="candidate-list">
+      <div class="candidate-card" *ngFor="let candidate of filteredCandidates">
+        <div class="card-header">
+          <h3>{{ candidate.name }}</h3>
+          <p class="score">Score: {{ candidate.score }}</p>
+        </div>
+        <p><strong>Poste:</strong> {{ candidate.jobTitle }}</p>
+        <p><strong>Expérience:</strong> {{ candidate.experience }}</p>
+        <p><strong>Compétences:</strong> {{ candidate.skills }}</p>
+        <button class="view-button">Voir Profil</button>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,773 @@
+/* General container for the candidates page */
+.candidates-page {
+  padding: 30px;
+  background-color: #f5f7fa; /* Light background for a clean look */
+  min-height: 100vh; /* Ensure it takes full viewport height */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Modern font stack */
+}
+
+/* Header Section */
+.candidates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e4e8; /* Subtle divider */
+}
+
+.candidates-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1a202c; /* Darker text for better contrast */
+  margin: 0;
+  letter-spacing: -0.02em; /* Slight letter spacing for a modern look */
+}
+
+.back-btn {
+  background-color:  #7c3aed; /* Professional blue */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #3b7dd8; /* Slightly darker on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.back-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(81, 43, 216, 0.3); /* Focus ring for accessibility */
+}
+
+.back-btn i {
+  font-size: 1rem;
+}
+
+/* Error Messages */
+.errors {
+  background-color: #fef4f4; /* Softer red background */
+  color: #c53030; /* Muted red text */
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.errors ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.9rem;
+}
+
+/* Loading State */
+.loading-spinner {
+  text-align: center;
+  color: #718096; /* Muted gray */
+  font-size: 1.1rem;
+  margin: 40px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.loading-spinner i {
+  font-size: 1.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* No Candidates Message */
+.no-candidates {
+  text-align: center;
+  color: #718096;
+  font-size: 1.1rem;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.no-candidates i {
+  font-size: 1.5rem;
+  color: #e53e3e; /* Softer red */
+  margin-right: 10px;
+}
+
+/* Candidates Content */
+.candidates-content {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(133, 114, 145, 0.05);
+  padding: 20px;
+}
+
+/* Candidates Stats Section */
+.candidates-stats {
+  margin-bottom: 25px;
+  padding: 15px;
+  background-color: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.candidates-stats h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 15px 0;
+}
+
+.candidates-stats h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #7c3aed;
+  margin: 0 0 8px 0;
+}
+
+.candidates-stats p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin: 0 0 5px 0;
+}
+
+/* Filter and Sort Controls */
+.candidates-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  position: relative;
+  flex: 1;
+  max-width: 350px;
+}
+
+.search-bar i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0aec0;
+  font-size: 1rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #f7fafc;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color:  #7c3aed;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.sort-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sort-buttons button {
+  background-color: #edf2f7;
+  border: 1px solid #e2e8f0;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4a5568;
+  transition: all 0.3s ease;
+}
+
+.sort-buttons button.active,
+.sort-buttons button:hover {
+  background-color:  #7c3aed;
+  color: white;
+  border-color:  #7c3aed;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+}
+
+.sort-buttons button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3); /* Focus ring for accessibility */
+}
+
+/* Candidates Table */
+.candidates-table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.candidates-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #fff;
+}
+
+.candidates-table th,
+.candidates-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #edf2f7;
+  font-size: 0.9rem;
+  min-width: 100px; /* Ensure columns don’t collapse too small */
+}
+
+.candidates-table th {
+  background-color: #f7fafc;
+  color: #2d3748;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Adjust column widths for better spacing */
+.candidates-table th:nth-child(1),
+.candidates-table td:nth-child(1) {
+  min-width: 150px; /* Name */
+}
+
+.candidates-table th:nth-child(2),
+.candidates-table td:nth-child(2) {
+  min-width: 180px; /* Email */
+}
+
+.candidates-table th:nth-child(3),
+.candidates-table td:nth-child(3) {
+  min-width: 120px; /* Telephone */
+}
+
+.candidates-table th:nth-child(4),
+.candidates-table td:nth-child(4) {
+  min-width: 120px; /* Applied Date */
+}
+
+.candidates-table th:nth-child(5),
+.candidates-table td:nth-child(5) {
+  min-width: 200px; /* Competences */
+}
+
+.candidates-table th:nth-child(6),
+.candidates-table td:nth-child(6) {
+  min-width: 120px; /* Adequacy Score */
+}
+
+.candidates-table th:nth-child(7),
+.candidates-table td:nth-child(7) {
+  min-width: 100px; /* Status */
+}
+
+.candidates-table th:nth-child(8),
+.candidates-table td:nth-child(8) {
+  min-width: 120px; /* Actions */
+}
+
+/* Style for Adequacy Score */
+.candidates-table td:nth-child(6) {
+  font-weight: 500;
+  color: #2d3748;
+}
+
+/* Highlight high scores */
+.candidates-table td:nth-child(6) {
+  position: relative;
+}
+
+.candidates-table td:nth-child(6)::before {
+  content: attr(data-score);
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.candidates-table td:nth-child(6)[data-score="100.00%"]::before {
+  background-color: #48bb78;
+  color: white;
+}
+
+.candidates-table td:nth-child(6)[data-score="50.00%"]::before {
+  background-color: #f6ad55;
+  color: white;
+}
+
+.candidates-table td:nth-child(6)[data-score="0.00%"]::before {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.candidates-table tbody tr {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.candidates-table tbody tr:hover {
+  background-color: #f7fafc;
+  transform: translateY(-1px);
+}
+
+.candidates-table tbody tr.status-shortlisted {
+  background-color: rgba(72, 187, 120, 0.05);
+}
+
+.candidates-table tbody tr.status-rejected {
+  background-color: rgba(229, 62, 62, 0.05);
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.status-badge.status-pending {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.status-badge.status-shortlisted {
+  background-color: #48bb78;
+  color: white;
+}
+
+.status-badge.status-rejected {
+  background-color: #e53e3e;
+  color: white;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.actions button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Focus ring for accessibility */
+}
+
+.actions button:first-child {
+  color:  #7c3aed;
+}
+
+.actions button:first-child:hover {
+  color:  #7c3aed;
+  transform: scale(1.1);
+}
+
+.actions button:nth-child(2) {
+  color: #48bb78;
+}
+
+.actions button:nth-child(2):hover {
+  color: #38a169;
+  transform: scale(1.1);
+}
+
+.actions button:nth-child(3) {
+  color: #e53e3e;
+}
+
+.actions button:nth-child(3):hover {
+  color: #c53030;
+  transform: scale(1.1);
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #4a90e2, #63b3ed);
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.pagination-controls button {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination-controls button:disabled {
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.pagination-controls button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* Focus ring for accessibility */
+}
+
+.page-numbers {
+  display: flex;
+  gap: 8px;
+}
+
+.page-numbers span {
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.page-numbers span.active {
+  background-color: white;
+  color: #4a90e2;
+  font-weight: 600;
+}
+
+.page-numbers span:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.page-numbers span:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* Focus ring for accessibility */
+}
+
+.pagination-controls select {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-controls select:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.pagination-controls select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* Focus ring for accessibility */
+}
+
+.pagination-controls select option {
+  background-color: #fff;
+  color: #2d3748;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .candidates-page {
+    padding: 20px;
+  }
+
+  .candidates-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .candidates-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .candidates-stats {
+    padding: 12px;
+  }
+
+  .candidates-stats h3 {
+    font-size: 1.1rem;
+  }
+
+  .candidates-stats h4 {
+    font-size: 1rem;
+  }
+
+  .candidates-stats p {
+    font-size: 0.9rem;
+  }
+
+  .candidates-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .sort-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sort-buttons button {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  .candidates-table th,
+  .candidates-table td {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .page-numbers {
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .candidates-page {
+    padding: 15px;
+  }
+
+  .candidates-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .back-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .candidates-stats {
+    padding: 10px;
+  }
+
+  .candidates-stats h3 {
+    font-size: 1rem;
+  }
+
+  .candidates-stats h4 {
+    font-size: 0.9rem;
+  }
+
+  .candidates-stats p {
+    font-size: 0.85rem;
+  }
+
+  .search-bar input {
+    padding: 10px 10px 10px 35px;
+    font-size: 0.9rem;
+  }
+
+  .sort-buttons button {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  .candidates-table th,
+  .candidates-table td {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  .actions button {
+    font-size: 1rem;
+  }
+
+  .pagination-controls button,
+  .pagination-controls select {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .page-numbers span {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal-actions button[type="submit"] {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.modal-actions button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.modal-actions button[type="button"] {
+  background-color: #ccc;
+  color: #333;
+}
+
+/* Interviews List Styles */
+.interviews-list {
+  margin-top: 20px;
+}
+
+.interviews-list h4 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.interview-item {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  border-left: 4px solid #6f42c1;
+}
+
+.interview-item p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.interview-item p strong {
+  color: #333;
+}
+
+/* Adjust Actions Column for New Button */
+.actions button {
+  margin-right: 5px; /* Ensure spacing between buttons */
+}
+
+/* Ensure the calendar icon is styled consistently */
+.actions .fas.fa-calendar-alt {
+  color: #6f42c1; /* Match your theme */
+}

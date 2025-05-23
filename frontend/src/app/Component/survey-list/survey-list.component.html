@@ -1,0 +1,57 @@
+<div class="container">
+  <!-- Header avec titre et bouton "Add Survey" -->
+  <div class="header">
+    <h2>Surveys List</h2>
+    <button class="add-survey" (click)="navigateToCreateSurvey()">
+      <i class="fas fa-plus"></i> Add New Survey
+    </button>
+  </div>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="isLoading" class="alert alert-info">
+    <i class="fas fa-spinner fa-spin"></i> Loading surveys...
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+  </div>
+
+  <!-- Contenu principal -->
+  <div *ngIf="!isLoading && !errorMessage" class="survey-list">
+    <div *ngIf="surveys.length === 0" class="alert alert-info">
+      <i class="fas fa-info-circle"></i> No surveys available. Create a new survey to get started!
+    </div>
+    <div *ngFor="let survey of surveys" class="survey-card">
+      <div class="survey-content">
+        <!-- Icône et titre -->
+        <div class="survey-icon">
+          <i class="fas fa-poll"></i>
+        </div>
+        <div class="survey-info">
+          <h3>{{ survey.Title || 'Untitled Survey' }}</h3>
+          <div class="survey-details">
+            <span><strong>Created on:</strong> {{ survey.CreatedAt | date:'mediumDate' }}</span>
+            <span><strong>Created by:</strong> {{ survey.CreatorName }}</span>
+            <span><strong>Questions:</strong> {{ survey.Questions?.length || 0 }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Boutons d'action -->
+      <div class="action-buttons">
+       
+        <button class="action-btn edit-btn" (click)="editSurvey(survey.Id)" title="Edit Survey">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="action-btn delete-btn" (click)="deleteSurvey(survey.Id)" title="Delete Survey">
+          <i class="fas fa-trash"></i>
+        </button>
+        <button class="action-btn responses-btn" (click)="viewResponses(survey.Id)" title="View Responses">
+          <i class="fas fa-chart-bar"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

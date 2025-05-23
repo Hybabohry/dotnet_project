@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>Create Survey</h2>
+  <form (ngSubmit)="createSurvey()">
+    <!-- Ajouter le champ pour le titre -->
+    <div class="form-group">
+      <label>Survey Title:</label>
+      <input [(ngModel)]="survey.Title" name="title" required placeholder="Enter the title of the survey" class="form-control" />
+    </div>
+
+    <div *ngFor="let question of survey.Questions; let i = index" class="question">
+      <h4>Question {{ i + 1 }}</h4>
+      <div class="form-group">
+        <label>Question type :</label>
+        <select [(ngModel)]="question.Type" name="type-{{i}}" required (change)="onQuestionTypeChange(i)">
+          <option value="text">Text</option>
+          <option value="radio">Radio buttons</option>
+          <option value="checkbox">Checkboxes</option>
+          <option value="rating">Rating scale</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Question :</label>
+        <input [(ngModel)]="question.Text" name="text-{{i}}" required placeholder="Enter your question" />
+      </div>
+      <div *ngIf="question.Type !== 'text' && question.Type !== 'rating'" class="options-group">
+        <label>Options </label>
+        <input [(ngModel)]="question.Options" name="options-{{i}}" placeholder="Option1,Option2,Option3" />
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="question.Required" name="required-{{i}}" />
+          Required
+        </label>
+      </div>
+      <button type="button" class="delete-question" (click)="removeQuestion(i)">Delete  question</button>
+    </div>
+    <div class="add-question-buttons">
+      <button type="button" class="add-question" (click)="addQuestion('text')">Add a text question</button>
+      <button type="button" class="add-question" (click)="addQuestion('radio')">Add a radio question</button>
+      <button type="button" class="add-question" (click)="addQuestion('checkbox')">Add a  checkbox question</button>
+      <button type="button" class="add-question" (click)="addQuestion('rating')">Add a rating scale</button>
+    </div>
+    <button type="submit" class="create-survey" [disabled]="survey.Questions.length === 0 || !survey.Title">Create Survey</button>
+  </form>
+</div>

@@ -1,0 +1,54 @@
+.wellbeing-survey {
+    padding: 10px;
+  }
+  
+  .alert {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .alert-info {
+    background-color: #e6f0fd;
+    color: #4361ee;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #ef233c;
+  }
+  
+  .card {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 10px;
+  }
+  
+  .btn-primary {
+    background-color: #4361ee;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #3a0ca3;
+  }
+  
+  .badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+  }
+  
+  .bg-primary {
+    background-color: #4361ee;
+    color: #fff;
+  }
+  
+  .text-muted {
+    color: #8d99ae;
+  }

@@ -1,0 +1,88 @@
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-brand">Staffio</div>
+  <div class="navbar-menu">
+    <a *ngIf="isLoggedIn && usertype === UserType.CANDIDATE" [routerLink]="['/applications']">My Applications</a>
+    <a *ngIf="isLoggedIn && usertype === UserType.CANDIDATE" [routerLink]="['/surveys']">Surveys</a>
+    <button *ngIf="!isLoggedIn" [routerLink]="['/login']">Login</button>
+    <button *ngIf="!isLoggedIn" [routerLink]="['/register']">Register</button>
+    <button *ngIf="isLoggedIn" (click)="logout()" class="BTN">Logout</button>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="home-container">
+  <!-- Jobs Section -->
+  <section id="jobs" class="section">
+    <div class="jobs-header">
+      <div class="icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
+      </div>
+      <h2>Our JobOfers </h2>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <h3>Rechercher des offres d'emploi</h3>
+      <div class="search-container">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTitle" 
+          (input)="onSearch()"
+          placeholder="Rechercher par titre de poste..."
+          class="search-input"
+        />
+      </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading">
+      <p>Loading...</p>
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage && !isLoading" class="success-message">
+      <p>{{ successMessage }}</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage && !isLoading" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+  
+    <div class="jobs-list" *ngIf="!isLoading && !selectedJob">
+      <div class="job-card" *ngFor="let job of filteredJobs">
+        <h3>{{ job.Title }}</h3>
+        <p>{{ job.Description }}</p>
+        <p><strong>Location:</strong> {{ job.Location }}</p>
+        <button class="apply-btn" (click)="startApplication(job)">Postuler</button>
+      </div>
+      <div *ngIf="filteredJobs.length === 0 && !errorMessage" class="no-jobs">
+        <p>Aucune offre d'emploi disponible pour le moment.</p>
+      </div>
+    </div>
+
+
+    <div class="application-form" *ngIf="selectedJob && !isLoading">
+      <h3>Postuler pour: {{ selectedJob.Title }}</h3>
+      <p><strong>Location:</strong> {{ selectedJob.Location }}</p>
+      <div class="form-group">
+        <label for="cvUpload">Télécharger votre CV:</label>
+        <input type="file" id="cvUpload" (change)="onCvFileChange($event)" accept=".pdf,.doc,.docx" />
+      </div>
+      <div class="form-actions">
+        <button class="submit-btn" (click)="applyForJob()" [disabled]="!cvFile">Envoyer la candidature</button>
+        <button class="cancel-btn" (click)="cancelApplication()">Annuler</button>
+      </div>
+    </div>
+  </section>
+
+  
+<app-chat *ngIf="chatbotStatus"></app-chat>
+
+
+

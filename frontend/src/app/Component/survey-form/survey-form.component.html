@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="header">
+    <button class="btn btn-return" [routerLink]="['/employee-survey-list']">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <h2><i class="fas fa-poll"></i> Respond to Survey</h2>
+  </div>
+  <div *ngIf="isLoading" class="alert alert-info"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+  <div *ngIf="errorMessage" class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> {{ errorMessage }}</div>
+  <div *ngIf="survey && !isLoading && !errorMessage">
+    <h3>{{ survey.Title }}</h3>
+    <form (ngSubmit)="submitSurvey()">
+      <div *ngFor="let question of survey.Questions" class="question">
+        <p>{{ question.Text }} <span *ngIf="question.Required" class="required">*</span></p>
+        <ng-container [ngSwitch]="question.Type">
+          <!-- Text -->
+          <input *ngSwitchCase="'text'" type="text" [(ngModel)]="responses[question.Id]" name="question-{{ question.Id }}" [required]="question.Required" class="form-control">
+          <!-- Checkbox -->
+          <div *ngSwitchCase="'checkbox'" class="checkbox-group">
+            <div *ngFor="let option of question.Options" class="checkbox-option">
+              <input type="checkbox" [checked]="isOptionSelected(question.Id, option)" (change)="updateCheckbox(question.Id, option, $event)" id="option-{{ question.Id }}-{{ option }}">
+              <label for="option-{{ question.Id }}-{{ option }}">{{ option }}</label>
+            </div>
+          </div>
+          <!-- Radio -->
+          <div *ngSwitchCase="'radio'" class="radio-group">
+            <div *ngFor="let option of question.Options" class="radio-option">
+              <input type="radio" [(ngModel)]="responses[question.Id]" name="question-{{ question.Id }}" [value]="option" [required]="question.Required" id="option-{{ question.Id }}-{{ option }}">
+              <label for="option-{{ question.Id }}-{{ option }}">{{ option }}</label>
+            </div>
+          </div>
+          <!-- Rating -->
+          <div *ngSwitchCase="'rating'" class="rating-group">
+            <input type="number" [(ngModel)]="responses[question.Id]" name="question-{{ question.Id }}" min="1" max="5" step="1" [required]="question.Required" class="form-control">
+            <small class="rating-hint">Enter a rating between 1 and 5</small>
+          </div>
+        </ng-container>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading"><i class="fas fa-paper-plane"></i> Submit</button>
+    </form>
+  </div>
+</div>

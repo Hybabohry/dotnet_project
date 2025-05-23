@@ -1,0 +1,24 @@
+<div class="wellbeing-survey">
+    <h5>Sondages de Satisfaction</h5>
+    <div *ngIf="isLoading" class="alert alert-info text-center">
+      Chargement des sondages...
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="!isLoading && !errorMessage">
+      <div *ngIf="wellbeingSurveys.length === 0" class="alert alert-info">
+        Aucun sondage bien-être disponible pour le moment.
+      </div>
+      <div *ngFor="let survey of wellbeingSurveys" class="card mb-3">
+        <div class="card-body">
+          <h6>{{ survey.Title }}</h6>
+          <p class="text-muted">Créé le : {{ survey.CreatedAt | date:'mediumDate' }}</p>
+          <span *ngIf="isNewSurvey(survey.CreatedAt)" class="badge bg-primary me-2">Nouveau</span>
+          <button class="btn btn-primary btn-sm" (click)="respondToSurvey(survey.Id)">
+            Répondre au sondage
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
